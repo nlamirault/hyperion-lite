@@ -3,7 +3,9 @@ Hyperion ChangeLog
 
 # Version 0.6.0 (IN PROGRESS)
 
--
+- Update dashboard using Graphite and InfluxDB metrics
+- Refactoring unit tests
+- Add InfluxDB
 
 # Version 0.5.0 (2014-06-16)
 
@@ -48,6 +50,6 @@ Hyperion ChangeLog
 - Init project
 
 
-
 [#4]: https://github.com/nlamirault/hyperion/issues/4
 [#6]: https://github.com/nlamirault/hyperion/issues/6
+[#7]: https://github.com/nlamirault/hyperion/issues/7
