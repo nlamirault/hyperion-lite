@@ -18,11 +18,11 @@
 NAME=hyperion-lite
 CONTAINER=nlamirault/$NAME
 HYPERION_DIR="/var/docker/$NAME"
-HYPERION_WEB=9090
-HYPERION_ES=9092
-HYPERION_REDIS=9379
-# HYPERION_INFLUXDB_UI=9083
-# HYPERION_INFLUXDB_API=9086
+HYPERION_WEB=9990
+HYPERION_ES=9992
+HYPERION_REDIS=9979
+HYPERION_INFLUXDB_UI=8083
+HYPERION_INFLUXDB_API=8086
 
 hyperion_pull() {
     sudo docker pull $CONTAINER
@@ -31,21 +31,20 @@ hyperion_pull() {
 hyperion_start() {
     sudo mkdir -p $HYPERION_DIR/{elasticsearch,graphite,supervisor,nginx,redis,influxdb}
     sudo chmod -R 777 $HYPERION_DIR/elasticsearch
-    ID=$(sudo docker run -d \
+    sudo docker run \
               -v $HYPERION_DIR/elasticsearch:/var/lib/elasticsearch \
               -v $HYPERION_DIR/graphite:/var/lib/graphite/storage/whisper \
               -v $HYPERION_DIR/supervisor:/var/log/supervisor \
               -v $HYPERION_DIR/nginx:/var/log/nginx \
-              #-v $HYPERION_DIR/influxdb:/var/lib/influxdb \
+              -v $HYPERION_DIR/influxdb:/var/lib/influxdb \
               -p $HYPERION_WEB:80 \
               -p $HYPERION_ES:9200 \
               -p $HYPERION_REDIS:6379 \
-              # -p $HYPERION_INFLUXDB_UI:8083 \
-              # -p $HYPERION_INFLUXDB_API:8086 \
+              -p $HYPERION_INFLUXDB_UI:8083 \
+              -p $HYPERION_INFLUXDB_API:8086 \
               -p 8125:8125/udp -p 2003:2003/tcp \
               -p 9222:22 \
-              --name $NAME $CONTAINER)
-    echo "Hyperion ID : $ID"
+              --name $NAME $CONTAINER
 }
 
 hyperion_stop() {

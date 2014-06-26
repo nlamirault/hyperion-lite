@@ -1,6 +1,10 @@
 Hyperion ChangeLog
 ======================
 
+# Version 0.6.0 (IN PROGRESS)
+
+-
+
 # Version 0.5.0 (2014-06-16)
 
 - [#7][] : Update Tox / Python tests configuration to test CoreOS hyperion

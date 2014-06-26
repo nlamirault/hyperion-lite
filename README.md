@@ -6,18 +6,19 @@
 ## Description
 
 [Hyperion-Lite][] is a [Docker][] (>= 0.11) image (Ubuntu 14.04 based) containing :
-* [Hyperion-Lite][] web description : `http://xxx:9090`
-* [Elasticsearch][] (v1.2.1) web interface : `http://xxx:9092/elasticsearch/`
-* [Grafana][] (v1.5.4) web interface : `http://xxx:9090/grafana/`
-* [Graphite][] (v3.1.0) web interface : `http://xxx:9090/graphite/`
+* [Hyperion-Lite][] web description : `http://xxx:9990`
+* [Elasticsearch][] (v1.2.1) web interface : `http://xxx:9992/elasticsearch/`
+* [Grafana][] (v1.6.1) web interface : `http://xxx:9990/grafana/`
+* [Kibana][] (v3.1.0) web interface : `http://xxx:9990/kibana/`
+* [Graphite][] (v3.1.0) web interface : `http://xxx:9990/graphite/`
 * [Statsd][] (v0.7.1) daemon on `8125` and `8126`
 * [Supervisor][] is used to manage processes.
 * [InfluxDB][] (v0.7.3) web interface : `http://xxx:8083`
 
 Some [Elasticsearch][] plugins are available:
-* [ElasticSearchHead][]: `http://xxx:9092/_plugin/head/`
-* [ElasticHQ][]: `http://xxx:9092/_plugin/HQ/`
-* [Kopf][]: `http://xxx:9092/_plugin/kopf/`
+* [ElasticSearchHead][]: `http://xxx:9992/_plugin/head/`
+* [ElasticHQ][]: `http://xxx:9992/_plugin/HQ/`
+* [Kopf][]: `http://xxx:9992/_plugin/kopf/`
 
 
 
@@ -42,9 +43,10 @@ Commands:
 
 * Test your local installation using [hyperion_client.py](client/hyperion_client.py):
 
-        $ ./hyperion_client.py
+        $ pip install -r requirements.txt
+        $ ./client/hyperion_client.py
 
-* Go to `http://localhost:9090/`
+* Go to `http://localhost:9990/`
 
 
 ### Virtualbox
@@ -61,7 +63,7 @@ A `Vagrantfile` using [CoreOS][] (version 324.2.0) is provided if you want to us
 
         $ ./hyperion_client.py -s 10.1.2.3 -p 8125
 
-* Go to `http://10.1.2.3:9090/`
+* Go to `http://10.1.2.3:9990/`
 
 * You could connect to your virtual machine by ssh to manage your installation using [CoreOS][] tools ([Etcd][] and [Fleet][]).
 
