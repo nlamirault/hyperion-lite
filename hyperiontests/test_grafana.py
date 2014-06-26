@@ -15,9 +15,15 @@
 
 
 from hyperiontests import hyperion
+from hyperiontests import settings
 
 
 class TestGrafana(hyperion.HyperionTestCase):
+
+    def setUp(self):
+        super(TestGrafana, self).setUp()
+        self._host = "http://%s:%s" % (settings.HYPERION_HOST,
+                                       settings.HYPERION_WEB)
 
     def test_can_retrieve_default_dashboard(self):
         response = self.http_get("grafana/#/dashboard/file/default.json")

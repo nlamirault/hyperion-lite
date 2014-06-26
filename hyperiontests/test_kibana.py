@@ -15,9 +15,15 @@
 
 
 from hyperiontests import hyperion
+from hyperiontests import settings
 
 
 class TestKibana(hyperion.HyperionTestCase):
+
+    def setUp(self):
+        super(TestKibana, self).setUp()
+        self._host = "http://%s:%s" % (settings.HYPERION_HOST,
+                                       settings.HYPERION_WEB)
 
     def test_can_retrieve_logstash_dashboard(self):
         response = self.http_get("kibana/index.html#/dashboard/file/logstash.json")

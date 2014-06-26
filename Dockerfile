@@ -134,7 +134,7 @@ ADD ./kibana/config.js /src/kibana/config.js
 ADD ./kibana/hyperion.json /src/kibana/app/dashboards/default.json
 
 # InfluxDB
-ADD ./influxdb/config.toml /src/influxdb/config.toml
+#ADD ./influxdb/config.toml /src/influxdb/config.toml
 
 # SSHD
 RUN mkdir -p /var/run/sshd

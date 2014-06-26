@@ -18,27 +18,29 @@ from hyperiontests import hyperion
 from hyperiontests import settings
 
 
-class TestElasticsearch(hyperion.HyperionTestCase):
+class TestInfluxDB(hyperion.HyperionTestCase):
 
     def setUp(self):
-        super(TestElasticsearch, self).setUp()
+        super(TestInfluxDB, self).setUp()
         self._host = "http://%s:%s" % (settings.HYPERION_HOST,
-                                       settings.HYPERION_ES)
+                                       settings.HYPERION_INFLUXDB)
 
-    def _elasticsearch_request(self, uri):
-        response = self.http_get(uri)
+    def _influxdb_request(self, uri):
+        response = self.http_get(uri, 'root', 'root')
         self.assertEqual(200, response.status_code)
-        self.assertEqual("application/json; charset=UTF-8",
+        self.assertEqual("application/json",
                          response.headers.get("Content-Type"))
+        self.assertTrue("InfluxDB v0.7.3" in response.headers.get("X-Influxdb-Version"))
         content = response.json()
         print(content)
         return content
 
-    def test_can_retrieve_elasticsearch_status(self):
-        content = self._elasticsearch_request('')
-        self.assertEqual(200, content['status'])
-        self.assertEqual("1.2.1", content['version']['number'])
+    def test_can_retrieve_influxdb_hyperion_db(self):
+        content = self._influxdb_request('db')
+        self.assertEqual(1, len(content))
+        self.assertEqual('hyperion-lite', content[0]['name'])
 
-    def test_can_retrieve_nodes(self):
-        content = self._elasticsearch_request('_nodes/_local')
-        self.assertEqual("elasticsearch", content['cluster_name'])
+    def test_can_retrieve_admin_clusters(self):
+        content = self._influxdb_request('cluster_admins')
+        self.assertEqual(1, len(content))
+        self.assertEqual('root', content[0]['name'])

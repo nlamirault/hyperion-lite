@@ -1,0 +1,4 @@
+*.pyc
+.tox/
+hyperion.egg-info/
+.vagrant/

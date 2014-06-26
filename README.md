@@ -26,7 +26,7 @@ Some [Elasticsearch][] plugins are available:
 
 ### Local
 
-Get the container from the Docker index and launch it (Cf [Docker documentation](http://docs.docker.io/)). You could use this [script](client/hyperion.sh) to help you :
+Get the container from the Docker index and launch it (Cf [Docker documentation][]). You could use this [script](client/hyperion.sh) to help you :
 ```bash
 $ client/hyperion.sh help
 Usage: client/hyperion.sh <command>
@@ -41,10 +41,16 @@ Commands:
 
         $ ./hyperion.sh pull && ./hyperion.sh start
 
-* Test your local installation using [hyperion_client.py](client/hyperion_client.py):
+* For [Graphite][] metrics, you could test your local installation using [hyperion_statsd.py](client/hyperion_statsd.py):
 
         $ pip install -r requirements.txt
-        $ ./client/hyperion_client.py
+        $ ./client/hyperion_statsd.py
+
+* For [InfluxDB][] metrics, you could test your installation using [sysinfo_influxdb][]:
+
+        $ curl -X POST 'http://localhost:8086/db?u=root&p=root' \
+            -d '{"name": "hyperion-lite"}'
+        $ sysinfo_influxdb -host 127.0.0.1:8086  -d hyperion-lite -v=text -D
 
 * Go to `http://localhost:9990/`
 
@@ -59,9 +65,9 @@ A `Vagrantfile` using [CoreOS][] (version 324.2.0) is provided if you want to us
 
         $ vagrant up
 
-* Test your installation using [hyperion_client.py](client/hyperion_client.py):
+* Test your installation using [hyperion_client.py](client/hyperion_statsd.py):
 
-        $ ./hyperion_client.py -s 10.1.2.3 -p 8125
+        $ ./hyperion_statsd.py -s 10.1.2.3 -p 8125
 
 * Go to `http://10.1.2.3:9990/`
 
@@ -121,6 +127,7 @@ Using this file [hekad.toml][] for [Heka][] and send logs :
 
 * You could launch unit tests using local installation or VM installation :
 
+        $ pip install -r test-requirements.txt
         $ tox
         $ tox -evm
 
@@ -164,6 +171,7 @@ Nicolas Lamirault <nicolas.lamirault@gmail.com>
 [badge-license]: https://img.shields.io/badge/license-GPL_3-green.svg?style=flat
 
 [Docker]: https://www.docker.io
+[Docker documentation]: http://docs.docker.io
 [CoreOS]: http://coreos.com
 [Etcd]: http://coreos.com/using-coreos/etcd
 [Fleet]: http://coreos.com/using-coreos/clustering/
@@ -182,3 +190,4 @@ Nicolas Lamirault <nicolas.lamirault@gmail.com>
 [Fluentd]: http://fluentd.org/
 [Heka]: http://hekad.readthedocs.org/en/latest/
 [Supervisor]: http://supervisord.org
+[sysinfo_influxdb]: https://github.com/novaquark/sysinfo_influxdb
