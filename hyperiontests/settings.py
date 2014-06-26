@@ -14,6 +14,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 HYPERION_HOST = "127.0.0.1"
-HYPERION_WEB = 9090
-HYPERION_ES = 9092
-HYPERION_REDIS = 9379
+HYPERION_WEB = 9990
+HYPERION_ES = 9992
+HYPERION_REDIS = 9979
