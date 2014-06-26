@@ -74,6 +74,11 @@ RUN mkdir -p /src/kibana && \
 #     cd /src/influxdb && \
 #     wget -q http://s3.amazonaws.com/influxdb/influxdb-0.7.3.amd64.tar.gz && \
 #     tar xzf influxdb-0.7.3.amd64.tar.gz --strip-components=1 && rm influxdb-0.7.3.amd64.tar.gz
+RUN mkdir -p /src/influxdb
+ADD http://s3.amazonaws.com/influxdb/influxdb_latest_amd64.deb /influxdb_latest_amd64.deb
+RUN dpkg -i /influxdb_latest_amd64.deb
+
+
 
 # Configuration
 # -------------
@@ -129,7 +134,7 @@ ADD ./kibana/config.js /src/kibana/config.js
 ADD ./kibana/hyperion.json /src/kibana/app/dashboards/default.json
 
 # InfluxDB
-#ADD ./influxdb/config.toml /src/influxdb/config.toml
+ADD ./influxdb/config.toml /src/influxdb/config.toml
 
 # SSHD
 RUN mkdir -p /var/run/sshd
@@ -168,10 +173,10 @@ EXPOSE	8126
 EXPOSE 6379
 
 # InfluxDB
-# EXPOSE 8086
-# EXPOSE 8083
-# EXPOSE 8090
-# EXPOSE 8099
+EXPOSE 8086
+EXPOSE 8083
+EXPOSE 8090
+EXPOSE 8099
 
 # SSHD
 EXPOSE 22
@@ -184,7 +189,7 @@ VOLUME ["/var/lib/storage/whisper"]
 VOLUME ["/var/log/supervisor"]
 VOLUME ["/var/log/nginx"]
 VOLUME ["/var/lib/redis"]
-#VOLUME ["/var/lib/influxdb"]
+VOLUME ["/var/lib/influxdb"]
 
 
 # Launch
