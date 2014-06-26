@@ -109,8 +109,9 @@ RUN chmod 0664 /var/lib/graphite/storage/graphite.db
 RUN cd /var/lib/graphite/webapp/graphite && python manage.py syncdb --noinput
 
 # Grafana
-ADD ./grafana/graphite_config.js /src/grafana/config.js
+#ADD ./grafana/graphite_config.js /src/grafana/config.js
 #ADD ./grafana/influxdb_config.js /src/grafana/config.js
+ADD ./grafana/grafana_config.js /src/grafana/config.js
 ADD ./grafana/hyperion.json /src/grafana/app/dashboards/default.json
 
 # Nginx
