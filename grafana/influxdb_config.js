@@ -27,7 +27,7 @@ function (Settings) {
           influx: {
               default: true,
               type: 'influxdb',
-              url: 'http://' + window.location.hostname+ ':8086/db/sysinfo',
+              url: 'http://' + window.location.hostname+ ':8086/db/hyperion',
               username: 'root',
               password: 'root',
           }
