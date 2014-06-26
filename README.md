@@ -21,6 +21,8 @@ Some [Elasticsearch][] plugins are available:
 * [Kopf][]: `http://xxx:9992/_plugin/kopf/`
 
 
+![Hyperion-Lite dashboard](hyperion-lite.png)
+
 
 ## Deployment
 
