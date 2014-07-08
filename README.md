@@ -83,9 +83,9 @@ A `Vagrantfile` using [CoreOS][] (version 324.2.0) is provided if you want to us
 * You could connect to your virtual machine by ssh to manage your installation using [CoreOS][] tools ([Etcd][] and [Fleet][] and [Systemd][]).
 
         $ vagrant ssh
-        $ fleetctl list-units
+        fleetctl list-units
         UNIT			STATE		LOAD	ACTIVE	SUB	DESC		MACHINE
-        hyperion-lite.service	launched	loaded	active	running	Hyperion-Lite	c1adaa61.../10.1.2.3
+        hyperion-lite.service	launched	loaded	active	running	hyperion-lite	43824b21.../10.2.4.6
         $ fleetctl status hyperion-lite.service
         ● hyperion-lite.service - hyperion-lite
            Loaded: loaded (/etc/systemd/system/hyperion-lite.service; linked-runtime)
