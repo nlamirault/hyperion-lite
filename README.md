@@ -74,7 +74,7 @@ A `Vagrantfile` using [CoreOS][] (version 324.2.0) is provided if you want to us
 
 * Go to `http://10.2.4.6:9990/`
 
-* You could connect to your virtual machine by ssh to manage your installation using [CoreOS][] tools ([Etcd][] and [Fleet][]).
+* You could connect to your virtual machine by ssh to manage your installation using [CoreOS][] tools ([Etcd][] and [Fleet][] and [Systemd][]).
 
         $ vagrant ssh
         $ fleetctl list-units
@@ -90,6 +90,7 @@ A `Vagrantfile` using [CoreOS][] (version 324.2.0) is provided if you want to us
 
         Jun 10 22:07:44 hyperion-lite docker[3314]: 2014-06-10 22:07:44,643 INFO spawned: 'carbon-cache' with pid 17
         Jun 10 22:07:44 hyperion-lite docker[3314]: 2014-06-10 22:07:44,657 INFO spawned: 'elasticsearch' with pid 18
+        $ journalctl -f -u hyperion-lite.service
 
 
 
