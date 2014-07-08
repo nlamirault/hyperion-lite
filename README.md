@@ -52,7 +52,7 @@ Commands:
 
         $ curl -X POST 'http://localhost:8086/db?u=root&p=root' \
             -d '{"name": "hyperion-lite"}'
-        $ sysinfo_influxdb -host 127.0.0.1:8086  -d hyperion-lite -v=text -D
+        $ sysinfo_influxdb -host 127.0.0.1:8086 -P hyperion-lite -d hyperion-lite -v=text -D
 
 * Go to `http://localhost:9990/grafana` to see dashboard metrics
 
@@ -68,11 +68,17 @@ A `Vagrantfile` using [CoreOS][] (version 324.2.0) is provided if you want to us
 
         $ vagrant up
 
-* Test your installation using [hyperion_client.py](client/hyperion_statsd.py):
+* Test your [Graphite][] metrics using [hyperion_client.py](client/hyperion_statsd.py):
 
         $ ./hyperion_statsd.py -s 10.2.4.6 -p 8125
 
-* Go to `http://10.2.4.6:9990/`
+* Test your [InfluxDB][] metrics using [hyperion_statsd.py](client/hyperion_statsd.py):
+
+        $ curl -X POST 'http://10.2.4.6:8086/db?u=root&p=root' \
+            -d '{"name": "hyperion-lite"}'
+        $ sysinfo_influxdb -host 10.2.4.6:8086 -P hyperion-lite -d hyperion-lite -v=text -D
+
+* Go to `http://10.2.4.6:9990/grafana/`
 
 * You could connect to your virtual machine by ssh to manage your installation using [CoreOS][] tools ([Etcd][] and [Fleet][] and [Systemd][]).
 
@@ -81,16 +87,20 @@ A `Vagrantfile` using [CoreOS][] (version 324.2.0) is provided if you want to us
         UNIT			STATE		LOAD	ACTIVE	SUB	DESC		MACHINE
         hyperion-lite.service	launched	loaded	active	running	Hyperion-Lite	c1adaa61.../10.1.2.3
         $ fleetctl status hyperion-lite.service
-        ● hyperion-lite.service - Hyperion-Lite
-        Loaded: loaded (/etc/systemd/system/hyperion-lite.service; linked-runtime)
-        Active: active (running) since Wed 2014-06-10 22:07:42 UTC; 10min ago
-        Main PID: 3314 (docker)
-            CGroup: /system.slice/hyperion-lite.service
-                    └─3314 /usr/bin/docker run -rm -v /var/docker/hyperion-lite/elasticsearch:/var/lib/elasticsearch -v /var/docker/hyperion-lite/graphite:/var/lib/graphite/storage/whisper -v /var/docker/hyperion-lite/supervisor:/var/log/supervisor -v /var/docker/hyperion-lite/nginx:/var/log/nginx -p 9090:80 -p 9092:9200 -p 9379:6379 -p 8125:8125/udp -p 2003:2003/tcp --name hyperion-lite nlamirault/hyperion-lite
-
-        Jun 10 22:07:44 hyperion-lite docker[3314]: 2014-06-10 22:07:44,643 INFO spawned: 'carbon-cache' with pid 17
-        Jun 10 22:07:44 hyperion-lite docker[3314]: 2014-06-10 22:07:44,657 INFO spawned: 'elasticsearch' with pid 18
+        ● hyperion-lite.service - hyperion-lite
+           Loaded: loaded (/etc/systemd/system/hyperion-lite.service; linked-runtime)
+           Active: active (running) since Tue 2014-07-07 23:28:58 UTC; 15min ago
+           Process: 3620 ExecStartPost=/usr/bin/etcdctl set /hyperion-lite/host ${COREOS_PUBLIC_IPV4} (code=exited, status=0/SUCCESS)
+           Main PID: 3619 (docker)
+              CGroup: /system.slice/hyperion-lite.service
+                  └─3619 /usr/bin/docker run --rm -v /var/docker/hyperion-lite/elasticsearch:/var/lib/elasticsearch -v /var/docker/hyperion-lite/graphite:/var/lib/graphite/storage/whisper -v /var/docker/hyperion-lite/supervisor:/var/log/supervisor -v /var/docker/hyperion-lite/nginx:/var/log/nginx -p 9990:80 -p 9992:9200 -p 9979:6379 -p 8083:8083 -p 8086:8086 -p 8125:8125/udp -p 2003:2003/tcp --name hyperion-lite nlamirault/hyperion-lite:0.6.0
         $ journalctl -f -u hyperion-lite.service
+        fleetctl journal -f hyperion-lite.service
+        -- Logs begin at Tue 2014-07-07 23:28:24 UTC. --
+        Jul 07 23:28:57 hyperion-lite systemd[1]: Starting hyperion-lite...
+        Jul 07 23:28:58 hyperion-lite systemd[1]: Started hyperion-lite.
+        Jul 07 23:28:58 hyperion-lite docker[3619]: Unable to find image 'nlamirault/hyperion-lite:0.6.0' locally
+        Jul 07 23:28:58 hyperion-lite docker[3619]: Pulling repository nlamirault/hyperion-lite
 
 
 

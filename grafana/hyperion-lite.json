@@ -4,7 +4,7 @@
     "filter": {
       "list": [],
       "time": {
-        "from": "now-1h",
+        "from": "now-5m",
         "to": "now"
       }
     }
@@ -381,16 +381,17 @@
               "target": "",
               "function": "mean",
               "column": "system",
-              "series": "cpu_percent",
-              "query": "select  mean(system) from \"cpu_percent\" where  time > now() - 1h     group by time(10s)  order asc",
-              "interval": "10s"
+              "series": "hyperion-lite.cpu",
+              "query": "select  mean(system) from \"hyperion-lite.cpu\" where  time > now() - 5m     group by time(10s)  order asc",
+              "interval": "10s",
+              "hide": false
             },
             {
               "target": "",
               "function": "mean",
               "column": "user",
-              "series": "cpu_percent",
-              "query": "select  mean(user) from \"cpu_percent\" where  time > now() - 1h     group by time(10s)  order asc",
+              "series": "hyperion-lite.cpu",
+              "query": "select  mean(user) from \"hyperion-lite.cpu\" where  time > now() - 5m     group by time(10s)  order asc",
               "interval": "10s"
             }
           ],
@@ -451,17 +452,19 @@
           },
           "targets": [
             {
-              "function": "derivative",
-              "column": "packets_recv",
-              "series": "network_usage",
-              "query": "select  derivative(packets_recv) from \"network_usage\" where  time > now() - 1h     group by time(5s)  order asc"
+              "function": "sum",
+              "column": "trans_bytes",
+              "series": "hyperion-lite.network",
+              "query": "select  sum(trans_bytes) from \"hyperion-lite.network\" where  time > now() - 5m     group by time(10s)  order asc",
+              "interval": "10s"
             },
             {
               "target": "",
-              "function": "derivative",
-              "column": "packets_sent",
-              "series": "network_usage",
-              "query": "select  derivative(packets_sent) from \"network_usage\" where  time > now() - 1h     group by time(5s)  order asc"
+              "function": "sum",
+              "column": "recv_bytes",
+              "series": "hyperion-lite.network",
+              "query": "select  sum(recv_bytes) from \"hyperion-lite.network\" where  time > now() - 5m     group by time(10s)  order asc",
+              "interval": "10s"
             }
           ],
           "aliasColors": {},
