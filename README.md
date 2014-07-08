@@ -28,7 +28,7 @@ Some [Elasticsearch][] plugins are available:
 
 ### Local
 
-Get the container from the Docker index and launch it (Cf [Docker documentation][]). You could use this [script](client/hyperion.sh) to help you :
+Use this [script](client/hyperion.sh) to help you to local deployment :
 ```bash
 $ client/hyperion.sh help
 Usage: client/hyperion.sh <command>
@@ -54,12 +54,13 @@ Commands:
             -d '{"name": "hyperion-lite"}'
         $ sysinfo_influxdb -host 127.0.0.1:8086  -d hyperion-lite -v=text -D
 
-* Go to `http://localhost:9990/`
+* Go to `http://localhost:9990/grafana` to see dashboard metrics
 
 
 ### Virtualbox
 
-A `Vagrantfile` using [CoreOS][] (version 324.2.0) is provided if you want to use it in a virtual machine. This virtual machine is sharing volume `/var/docker/hyperion-lite` between host and guest machine to store metrics.
+A `Vagrantfile` using [CoreOS][] (version 324.2.0) is provided if you want to use it in a virtual machine.
+<> This virtual machine is sharing volume `/var/docker/hyperion-lite` between host and guest machine to store metrics.
 
 * Install dependencies : [Virtualbox][] (>= 4.3.10), [Vagrant][] (>= 1.6), NFS server
 
@@ -69,9 +70,9 @@ A `Vagrantfile` using [CoreOS][] (version 324.2.0) is provided if you want to us
 
 * Test your installation using [hyperion_client.py](client/hyperion_statsd.py):
 
-        $ ./hyperion_statsd.py -s 10.1.2.3 -p 8125
+        $ ./hyperion_statsd.py -s 10.2.4.6 -p 8125
 
-* Go to `http://10.1.2.3:9990/`
+* Go to `http://10.2.4.6:9990/`
 
 * You could connect to your virtual machine by ssh to manage your installation using [CoreOS][] tools ([Etcd][] and [Fleet][]).
 
@@ -182,6 +183,7 @@ Nicolas Lamirault <nicolas.lamirault@gmail.com>
 [Redis]: http://www.redis.io
 [Graphite]: http://graphite.readthedocs.org/en/latest
 [Grafana]: http://grafana.org/
+[Kibana]: http://www.elasticsearch.org/overview/kibana/
 [Carbon]: http://graphite.readthedocs.org/en/latest/carbon-daemons.html
 [Statsd]: https://github.com/etsy/statsd/wiki
 [ElasticSearchHead]: http://mobz.github.io/elasticsearch-head
@@ -193,3 +195,4 @@ Nicolas Lamirault <nicolas.lamirault@gmail.com>
 [Heka]: http://hekad.readthedocs.org/en/latest/
 [Supervisor]: http://supervisord.org
 [sysinfo_influxdb]: https://github.com/novaquark/sysinfo_influxdb
+[InfluxDB]: http://influxdb.com

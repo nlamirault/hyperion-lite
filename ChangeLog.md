@@ -1,8 +1,9 @@
-Hyperion ChangeLog
+Hyperion-Lite ChangeLog
 ======================
 
-# Version 0.6.0 (IN PROGRESS)
+# Version 0.6.0 (2014-07-08)
 
+- Split Hyperion and Hyperion-Lite projects
 - Update dashboard using Graphite and InfluxDB metrics
 - Refactoring unit tests
 - Add InfluxDB

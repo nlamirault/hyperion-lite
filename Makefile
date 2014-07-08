@@ -42,7 +42,7 @@ destroy:
 reset: destroy setup
 
 build:
-	sudo docker build -t $(CONTAINER) .
+	docker build -t $(CONTAINER) .
 
 start:
 	client/hyperion.sh start
