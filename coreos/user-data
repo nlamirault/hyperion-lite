@@ -84,18 +84,18 @@ coreos:
      command: start
      content: |
        [Unit]
-       Description=hyperion
+       Description=hyperion-lite
        After=docker.service
        Requires=docker.service
 
        [Service]
-       ExecStart=/usr/bin/docker run --rm -v /var/docker/hyperion/elasticsearch:/var/lib/elasticsearch -v /var/docker/hyperion/graphite:/var/lib/graphite/storage/whisper -v /var/docker/hyperion/supervisor:/var/log/supervisor -v /var/docker/hyperion/nginx:/var/log/nginx -p 9090:80 -p 9092:9200 -p 9379:6379 -p 8125:8125/udp -p 2003:2003/tcp --name hyperion nlamirault/hyperion
-       ExecStartPost=/usr/bin/etcdctl set /hyperion/host ${COREOS_PUBLIC_IPV4}
-       ExecStop=/usr/bin/docker stop hyperion
-       ExecStopPost=/usr/bin/etcdctl rm /hyperion/host
+       ExecStart=/usr/bin/docker run --rm -v /var/docker/hyperion-lite/elasticsearch:/var/lib/elasticsearch -v /var/docker/hyperion-lite/graphite:/var/lib/graphite/storage/whisper -v /var/docker/hyperion-lite/supervisor:/var/log/supervisor -v /var/docker/hyperion-lite/nginx:/var/log/nginx -p 9990:80 -p 9992:9200 -p 9979:6379 -p 8083:8083 -p 8086:8086 -p 8125:8125/udp -p 2003:2003/tcp --name hyperion-lite nlamirault/hyperion-lite
+       ExecStartPost=/usr/bin/etcdctl set /hyperion-lite/host ${COREOS_PUBLIC_IPV4}
+       ExecStop=/usr/bin/docker stop hyperion-lite
+       ExecStopPost=/usr/bin/etcdctl rm /hyperion-lite/host
 
        [X-Fleet]
-       X-Conflicts=hyperion.service
+       X-Conflicts=hyperion-lite.service
 write_files:
   - path: /run/hyperion/motd
-    content: " \n\e[39mWelcome to Hyperion\t\t\tPowered by Core\e[38;5;45mO\e[38;5;206mS\e[39m\n\n"
+    content: " \n\e[39mWelcome to Hyperion-Lite\t\t\tPowered by Core\e[38;5;45mO\e[38;5;206mS\e[39m\n\n"
