@@ -4,6 +4,7 @@ After=docker.service
 Requires=docker.service
 
 [Service]
+ExecStartPre=/usr/bin/docker rm -f hyperion-lite
 ExecStart=/usr/bin/docker run --rm -v /var/docker/hyperion-lite/elasticsearch:/var/lib/elasticsearch -v /var/docker/hyperion-lite/graphite:/var/lib/graphite/storage/whisper -v /var/docker/hyperion-lite/supervisor:/var/log/supervisor -v /var/docker/hyperion-lite/nginx:/var/log/nginx -p 9990:80 -p 9992:9200 -p 9979:6379 -p 8083:8083 -p 8086:8086 -p 8125:8125/udp -p 2003:2003/tcp --name hyperion-lite nlamirault/hyperion-lite:0.6.0
 ExecStartPost=/usr/bin/etcdctl set /hyperion-lite/host ${COREOS_PUBLIC_IPV4}
 ExecStop=/usr/bin/docker stop hyperion-lite
