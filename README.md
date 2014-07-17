@@ -10,7 +10,7 @@
 * [Elasticsearch][] (v1.2.1) web interface : `http://xxx:9992/elasticsearch/`
 * [Grafana][] (v1.6.1) web interface : `http://xxx:9990/grafana/`
 * [Kibana][] (v3.1.0) web interface : `http://xxx:9990/kibana/`
-* [Graphite][] (v3.1.0) web interface : `http://xxx:9990/graphite/`
+* [Graphite][] (v0.10.0) web interface : `http://xxx:9990/graphite/`
 * [Statsd][] (v0.7.1) daemon on `8125` and `8126`
 * [Supervisor][] is used to manage processes.
 * [InfluxDB][] (v0.7.3) web interface : `http://xxx:8083`

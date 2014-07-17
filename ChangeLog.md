@@ -1,6 +1,11 @@
 Hyperion-Lite ChangeLog
 ======================
 
+# Version 1.0.0 (2014-07-17)
+
+- Update Grafana dashboard
+- Deploy Docker image
+
 # Version 0.6.0 (2014-07-08)
 
 - Split Hyperion and Hyperion-Lite projects
