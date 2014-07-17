@@ -4,7 +4,7 @@
     "filter": {
       "list": [],
       "time": {
-        "from": "now-5m",
+        "from": "now-1h",
         "to": "now"
       }
     }
@@ -129,8 +129,8 @@
           },
           "resolution": 100,
           "lines": true,
-          "fill": 0,
-          "linewidth": 1,
+          "fill": 1,
+          "linewidth": 2,
           "points": false,
           "pointradius": 5,
           "bars": false,
@@ -204,8 +204,8 @@
           },
           "resolution": 100,
           "lines": true,
-          "fill": 0,
-          "linewidth": 1,
+          "fill": 1,
+          "linewidth": 2,
           "points": false,
           "pointradius": 5,
           "bars": false,
@@ -274,8 +274,8 @@
           },
           "resolution": 100,
           "lines": true,
-          "fill": 0,
-          "linewidth": 1,
+          "fill": 1,
+          "linewidth": 2,
           "points": false,
           "pointradius": 5,
           "bars": false,
@@ -353,8 +353,8 @@
           },
           "resolution": 100,
           "lines": true,
-          "fill": 0,
-          "linewidth": 1,
+          "fill": 1,
+          "linewidth": 2,
           "points": false,
           "pointradius": 5,
           "bars": false,
@@ -382,16 +382,15 @@
               "function": "mean",
               "column": "system",
               "series": "hyperion-lite.cpu",
-              "query": "select  mean(system) from \"hyperion-lite.cpu\" where  time > now() - 5m     group by time(10s)  order asc",
-              "interval": "10s",
-              "hide": false
+              "query": "select  mean(system) from \"hyperion-lite.cpu\" where  time > now() - 1h     group by time(10s)  order asc",
+              "interval": "10s"
             },
             {
               "target": "",
               "function": "mean",
               "column": "user",
               "series": "hyperion-lite.cpu",
-              "query": "select  mean(user) from \"hyperion-lite.cpu\" where  time > now() - 5m     group by time(10s)  order asc",
+              "query": "select  mean(user) from \"hyperion-lite.cpu\" where  time > now() - 1h     group by time(10s)  order asc",
               "interval": "10s"
             }
           ],
@@ -427,8 +426,8 @@
           },
           "resolution": 100,
           "lines": true,
-          "fill": 0,
-          "linewidth": 1,
+          "fill": 1,
+          "linewidth": 2,
           "points": false,
           "pointradius": 5,
           "bars": false,
@@ -452,18 +451,18 @@
           },
           "targets": [
             {
-              "function": "sum",
-              "column": "trans_bytes",
+              "function": "mean",
+              "column": "recv_bytes",
               "series": "hyperion-lite.network",
-              "query": "select  sum(trans_bytes) from \"hyperion-lite.network\" where  time > now() - 5m     group by time(10s)  order asc",
+              "query": "select  mean(recv_bytes) from \"hyperion-lite.network\" where  time > now() - 1h     group by time(10s)  order asc",
               "interval": "10s"
             },
             {
               "target": "",
-              "function": "sum",
-              "column": "recv_bytes",
+              "function": "mean",
+              "column": "trans_bytes",
               "series": "hyperion-lite.network",
-              "query": "select  sum(recv_bytes) from \"hyperion-lite.network\" where  time > now() - 5m     group by time(10s)  order asc",
+              "query": "select  mean(trans_bytes) from \"hyperion-lite.network\" where  time > now() - 1h     group by time(10s)  order asc",
               "interval": "10s"
             }
           ],
