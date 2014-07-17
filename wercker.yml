@@ -8,7 +8,7 @@ build:
         - script:
             name: docker build
             code: |
-              make
+              make build
         - script:
             name: list images
             code: |
