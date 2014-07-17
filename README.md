@@ -1,7 +1,7 @@
 # Hyperion-Lite
 
 [![License GPL 3][badge-license]][COPYING]
-[![wercker status](https://app.wercker.com/status/a6dff1d550ed9c6aa3c466045bf1d51f/s "wercker status")](https://app.wercker.com/project/bykey/a6dff1d550ed9c6aa3c466045bf1d51f)
+[![wercker status](https://app.wercker.com/status/866edc2dd3b4ed63731381b426e93a2c/s "wercker status")](https://app.wercker.com/project/bykey/866edc2dd3b4ed63731381b426e93a2c)
 
 ## Description
 
@@ -59,7 +59,7 @@ Commands:
 
 ### Virtualbox
 
-A `Vagrantfile` using [CoreOS][] (version 324.2.0) is provided if you want to use it in a virtual machine.
+A `Vagrantfile` using [CoreOS][] (version 367.2.0) is provided if you want to use it in a virtual machine.
 <> This virtual machine is sharing volume `/var/docker/hyperion-lite` between host and guest machine to store metrics.
 
 * Install dependencies : [Virtualbox][] (>= 4.3.10), [Vagrant][] (>= 1.6), NFS server
