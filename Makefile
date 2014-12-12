@@ -50,5 +50,8 @@ start:
 stop:
 	client/hyperion.sh stop
 
+release:
+	@echo "docker tag ID NAME"
+
 clean:
 	client/hyperion.sh clean

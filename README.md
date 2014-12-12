@@ -7,13 +7,13 @@
 
 [Hyperion-Lite][] is a [Docker][] (>= 0.11) image (Ubuntu 14.04 based) containing :
 * [Hyperion-Lite][] web description : `http://xxx:9990`
-* [Elasticsearch][] (v1.2.1) web interface : `http://xxx:9992/elasticsearch/`
-* [Grafana][] (v1.6.1) web interface : `http://xxx:9990/grafana/`
+* [Elasticsearch][] (v1.3.2) web interface : `http://xxx:9992/elasticsearch/`
+* [Grafana][] (v1.7.0) web interface : `http://xxx:9990/grafana/`
 * [Kibana][] (v3.1.0) web interface : `http://xxx:9990/kibana/`
 * [Graphite][] (v0.10.0) web interface : `http://xxx:9990/graphite/`
 * [Statsd][] (v0.7.1) daemon on `8125` and `8126`
 * [Supervisor][] is used to manage processes.
-* [InfluxDB][] (v0.7.3) web interface : `http://xxx:8083`
+* [InfluxDB][] (v0.8.0) web interface : `http://xxx:8083`
 
 Some [Elasticsearch][] plugins are available:
 * [ElasticSearchHead][]: `http://xxx:9992/_plugin/head/`
@@ -59,10 +59,9 @@ Commands:
 
 ### Virtualbox
 
-A `Vagrantfile` using [CoreOS][] (version 367.2.0) is provided if you want to use it in a virtual machine.
-<> This virtual machine is sharing volume `/var/docker/hyperion-lite` between host and guest machine to store metrics.
+A `Vagrantfile` using [CoreOS][] (version 367.1.0) is provided if you want to use it in a virtual machine.
 
-* Install dependencies : [Virtualbox][] (>= 4.3.10), [Vagrant][] (>= 1.6), NFS server
+* Install dependencies : [Virtualbox][] (>= 4.3.10), [Vagrant][] (>= 1.6)
 
 * Launch VM:
 
@@ -72,7 +71,7 @@ A `Vagrantfile` using [CoreOS][] (version 367.2.0) is provided if you want to us
 
         $ ./hyperion_statsd.py -s 10.2.4.6 -p 8125
 
-* Test your [InfluxDB][] metrics using [hyperion_statsd.py](client/hyperion_statsd.py):
+* Test your [InfluxDB][] metrics using [sysinfo_influxdb][]:
 
         $ curl -X POST 'http://10.2.4.6:8086/db?u=root&p=root' \
             -d '{"name": "hyperion-lite"}'
@@ -80,7 +79,8 @@ A `Vagrantfile` using [CoreOS][] (version 367.2.0) is provided if you want to us
 
 * Go to `http://10.2.4.6:9990/grafana/`
 
-* You could connect to your virtual machine by ssh to manage your installation using [CoreOS][] tools ([Etcd][] and [Fleet][] and [Systemd][]).
+* You could connect to your virtual machine by ssh to manage your installation
+using [CoreOS][] tools ([Etcd][] and [Fleet][] and [Systemd][]).
 
         $ vagrant ssh
         fleetctl list-units
@@ -101,7 +101,6 @@ A `Vagrantfile` using [CoreOS][] (version 367.2.0) is provided if you want to us
         Jul 07 23:28:58 hyperion-lite systemd[1]: Started hyperion-lite.
         Jul 07 23:28:58 hyperion-lite docker[3619]: Unable to find image 'nlamirault/hyperion-lite:0.6.0' locally
         Jul 07 23:28:58 hyperion-lite docker[3619]: Pulling repository nlamirault/hyperion-lite
-
 
 
 ## Usage
@@ -207,3 +206,4 @@ Nicolas Lamirault <nicolas.lamirault@gmail.com>
 [Supervisor]: http://supervisord.org
 [sysinfo_influxdb]: https://github.com/novaquark/sysinfo_influxdb
 [InfluxDB]: http://influxdb.com
+[SystemdD]: http://freedesktop.org/wiki/Software/systemd

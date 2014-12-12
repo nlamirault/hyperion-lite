@@ -1,7 +1,7 @@
 Hyperion-Lite ChangeLog
 ======================
 
-# Version 1.0.0 (2014-07-17)
+# Version 1.0.0 (2014-12-12)
 
 - Update Grafana dashboard
 - Deploy Docker image

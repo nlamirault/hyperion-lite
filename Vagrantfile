@@ -4,12 +4,12 @@
 Vagrant.configure('2') do |config|
   config.vm.box = 'hyperion-lite'
 
-  config.vm.box = "coreos-324.2.0"
-  config.vm.box_url = "http://storage.core-os.net/coreos/amd64-usr/324.2.0/coreos_production_vagrant.box"
+  config.vm.box = "coreos-367.1.0"
+  config.vm.box_url = "http://storage.core-os.net/coreos/amd64-usr/367.1.0/coreos_production_vagrant.box"
 
   config.vm.hostname = "Hyperion-Lite"
   config.vm.network :private_network, :ip => '10.2.4.6'
-  config.vm.synced_folder ".", "/home/core/hyperion", type: "rsync"
+  # config.vm.synced_folder ".", "/home/core/hyperion", type: "rsync"
   # FIX: Virtualbox 100%CPU using it
   #config.vm.synced_folder "/var/docker/hyperion", "/var/docker/hyperion", id: "core", :nfs => true,  :mount_options   => ['nolock,vers=3,udp']
 
