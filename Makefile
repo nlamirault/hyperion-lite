@@ -15,16 +15,33 @@
 
 NAME=hyperion-lite
 CONTAINER=nlamirault/$(NAME)
+
 DOCKER_HYPERION=/var/docker/$(NAME)
+
+VERSION=$(shell \
+        grep "\# VERSION" Dockerfile \
+	|awk -F' ' '{print $$3}')
+
+NO_COLOR=\033[0m
+OK_COLOR=\033[32;01m
+ERROR_COLOR=\033[31;01m
+WARN_COLOR=\033[33;01m
+
+DOCKER = docker
+DOCKER_MACHINE_URI=https://github.com/docker/machine/releases/download
+DOCKER_MACHINE_VERSION=0.0.1
+FIG_URI=https://github.com/docker/fig/releases/download
+FIG_VERSION=1.0.1
 
 all: help
 
 help:
-	@echo " -- Hyperion --"
-	@echo "   setup     : Creates directories used by Hyperion"
-	@echo "   build     : Make the Docker image"
-	@echo "   start     : Start a container"
-	@echo "   stop      : Stop the container"
+	@echo -e "$(OK_COLOR)==== $(NAME) [$(VERSION)] ====$(NO_COLOR)"
+	@echo -e "$(WARN_COLOR)- setup     : Creates directories used by Hyperion"
+	@echo -e "$(WARN_COLOR)- build     : Make the Docker image"
+	@echo -e "$(WARN_COLOR)- start     : Start a container"
+	@echo -e "$(WARN_COLOR)- stop      : Stop the container"
+	@echo -e "$(WARN_COLOR)- publish   : Publish the image"
 
 setup:
 	@echo "Creates $(DOCKER_HYPERION) directories on host"
@@ -35,14 +52,22 @@ setup:
 	sudo mkdir -p $(DOCKER_HYPERION)/redis
 	sudo chmod -R 777 $(DOCKER_HYPERION)/elasticsearch
 
+init:
+	@echo -e "$(OK_COLOR)[$(APP)] Initialisation de l'environnement$(NO_COLOR)"
+	@wget $(DOCKER_MACHINE_URI)/$(DOCKER_MACHINE_VERSION)/linux -O machine
+	@chmod +x ./machine
+	@curl -Ls $(FIG_URI)/$(FIG_VERSION)/fig-`uname -s`-`uname -m` > ./fig
+	@chmod +x ./fig
+
 destroy:
-	@echo "Destroying $(DOCKER_HYPERION) directory on host"
-	sudo rm -fr $(DOCKER_HYPERION)
+	@echo -e "Destroying $(DOCKER_HYPERION) directory on host"
+	@sudo rm -fr $(DOCKER_HYPERION)
 
 reset: destroy setup
 
 build:
-	docker build -t $(CONTAINER) .
+	@echo -e "$(OK_COLOR) Build $(CONTAINER):$(VERSION)$(NO_COLOR)"
+	@$(DOCKER) build -t $(CONTAINER):$(VERSION) .
 
 start:
 	client/hyperion.sh start
@@ -50,8 +75,11 @@ start:
 stop:
 	client/hyperion.sh stop
 
-release:
-	@echo "docker tag ID NAME"
+publish:
+
+	@$(DOCKER) publish $(CONTAINER):$(VERSION)
 
 clean:
+	@echo -e "$(OK_COLOR)[$(NAME)] Nettoyage de l'environnement$(NO_COLOR)"
 	client/hyperion.sh clean
+	rm -f machine

@@ -1,3 +1,7 @@
+# VERSION 1.0
+# AUTHOR:         Nicolas Lamirault <nicolas.lamirault@gmail.com>
+# DESCRIPTION:    Hyperion-Lite
+
 FROM ubuntu:14.04
 MAINTAINER Nicolas Lamirault <nicolas.lamirault@gmail.com>
 

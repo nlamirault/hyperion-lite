@@ -1,0 +1,72 @@
+elasticsearch:
+  image: hyperion/elasticsearch
+  ports:
+    - "9200:9200"
+    - "9300:9300"
+  volumes:
+    - volumes/elasticsearch:/var/lib/elasticsearch
+
+grafana:
+  image: hyperion/grafana
+  ports:
+    - "8071:80"
+  links:
+    - elasticsearch:elasticsearch
+    - influxdb:influxdb
+
+influxdb:
+  image: hyperion/influxdb
+  ports:
+    - "8083:8083"
+    - "8086:8086"
+    - "8090:8090"
+    - "8099:8099"
+
+kibana:
+  image: hyperion/kibana
+  ports:
+    - "8072:80"
+  links:
+    - elasticsearch:elasticsearch
+
+fluentd:
+  image: hyperion/fluentd
+  ports:
+    - "24224:24224"
+    - "8002:9292"
+    - "8888:8888"
+  links:
+    - elasticsearch:elasticsearch
+
+# grafana:
+#   image: nacyot/grafana
+#   ports:
+#     - "8001:8000"
+
+# kibana:
+#   image: nacyot/kibana
+#   ports:
+#     - "8002:8002"
+
+# sirocco:
+#   image: nimbus/sirocco:1.7.0
+#   ports:
+#     - "8801:6666"
+# dashboard:
+#   image: nimbus/dashboard:1.16.0
+#   ports:
+#     - "8802:6666"
+# cmdb:
+#   image: nimbus/cmdb:2.5.0
+#   ports:
+#   - "8803:6666"
+#   links:
+#    - db
+# db:
+#   image: mysql:5.5.41
+#   ports:
+#     - 3306
+#   volumes:
+#     - volumes/log:/var/log/mysql
+#     - volumes/lib:/var/lib/mysql
+#     - volumes/conf.d:/etc/mysql/conf.d

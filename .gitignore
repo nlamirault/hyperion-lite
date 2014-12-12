@@ -1,5 +1,8 @@
+*~
 *.pyc
 .tox/
 hyperion.egg-info/
 .vagrant/
 venv/
+fig
+machine
