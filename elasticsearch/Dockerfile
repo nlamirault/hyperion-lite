@@ -20,7 +20,7 @@ ADD ./elasticsearch.yml /src/elasticsearch/elasticsearch.yml
 
 VOLUME ["/var/lib/elasticsearch"]
 
-CMD ["/elasticsearch/bin/elasticsearch"]
+CMD ["/src/elasticsearch/bin/elasticsearch"]
 
 EXPOSE 9200
 EXPOSE 9300
